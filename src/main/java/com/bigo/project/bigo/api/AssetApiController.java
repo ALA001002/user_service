@@ -304,6 +304,9 @@ public class AssetApiController extends BaseController {
                 TrxResponse trxResponse = JSON.parseObject(result, TrxResponse.class);
                 logger.info("address={},coin={},trxResponse={}",address,coin,trxResponse);
                 address = (String) trxResponse.getData();
+                if(StringUtils.isEmpty(address)) {
+                    return AjaxResult.error("to_address_is_not_exist");
+                }
                 WalletAddress temp = new WalletAddress();
                 temp.setUid(uid);
                 temp.setAddress(address);
@@ -315,6 +318,9 @@ public class AssetApiController extends BaseController {
                 TrxResponse trxResponse = JSON.parseObject(result, TrxResponse.class);
                 logger.info("address={},coin={},trxResponse={}",address,coin,trxResponse);
                 address = (String) trxResponse.getData();
+                if(StringUtils.isEmpty(address)) {
+                    return AjaxResult.error("to_address_is_not_exist");
+                }
 //                List<WalletAddress> list = new ArrayList<>();
                 WalletAddress temp = new WalletAddress();
                 temp.setUid(uid);
