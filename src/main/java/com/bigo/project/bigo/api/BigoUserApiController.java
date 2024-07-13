@@ -128,18 +128,19 @@ public class BigoUserApiController {
         }*/
 
         // 邀请码必填
-        if(StringUtils.isEmpty(regInfo.getInvitationCode())) {
-            return AjaxResult.error("invitation_code_not_exist");
-        }
-        //判断邀请码是否存在
-        String invitationCode = regInfo.getInvitationCode().replace(" ","");
-        BigoUser invitationUser = bigoUserService.getUserByUid(Long.valueOf(invitationCode));
-        if (!validateInviteCode(invitationCode) || invitationUser == null) {
-            return AjaxResult.error("invitation_code_not_exist");
+        if(!StringUtils.isEmpty(regInfo.getInvitationCode())) {
+//            return AjaxResult.error("invitation_code_not_exist");
+            //判断邀请码是否存在
+            String invitationCode = regInfo.getInvitationCode().replace(" ","");
+            BigoUser invitationUser = bigoUserService.getUserByUid(Long.valueOf(invitationCode));
+            if (!validateInviteCode(invitationCode) || invitationUser == null) {
+                return AjaxResult.error("invitation_code_not_exist");
+            }
+
+            bigoUser.setParentUid(Long.valueOf(regInfo.getInvitationCode()));
+            bigoUser.setTopUid(invitationUser.getTopUid() == null ? invitationUser.getUid() : invitationUser.getTopUid());
         }
 
-        bigoUser.setParentUid(Long.valueOf(regInfo.getInvitationCode()));
-        bigoUser.setTopUid(invitationUser.getTopUid() == null ? invitationUser.getUid() : invitationUser.getTopUid());
 
 
         if(!"789987".equals(regInfo.getCaptcha())) {
