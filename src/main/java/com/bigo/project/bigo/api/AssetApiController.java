@@ -654,7 +654,7 @@ public class AssetApiController extends BaseController {
             withdraw.setCheckStatus(0);
             withdraw.setType(5);
             withdraw.setCreateTime(new Date());
-            getPosition(withdraw, request);
+//            getPosition(withdraw, request);
             withdrawService.insert(withdraw);
         } catch (Exception ex) {
             log.error("用户：{} 上传充币凭证失败,错误信息：{}", user.getUid(), ex);
